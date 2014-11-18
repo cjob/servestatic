@@ -1,0 +1,70 @@
+# this is an example of the Fusion Apps CRM API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Fusion CRM API
+  description: Extend Fusion with the CRM API
+  version: "1.0.0"
+# the domain of the service
+host: api.fusion.oracle.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /Interactions:
+    get:
+      summary: Interactions
+      description: |
+        The Interactions endpoint returns information about the Interactions 
+        related to a support employee. The response includes details about each Interaction
+      parameters:
+        - name: Employee
+          in: query
+          description: Last name of the employee.
+          required: true
+          type: string
+      tags:
+        - Interactions
+      responses:
+        200:
+          description: An array of Interactions
+          schema:
+            type: array
+            items:
+              $ref: Interaction
+        default:
+          description: Unexpected error
+          schema:
+            $ref: Error
+  
+definitions:
+  Interaction:
+    properties:
+      product_id:
+        type: string
+        description: Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: Capacity of product. For example, 4 people.
+      image:
+        type: string
+        description: Image URL representing the product.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
