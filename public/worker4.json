@@ -1,0 +1,121 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Fusion ERP API",
+        "description": "Extend Fusion with the ERP API",
+        "version": "1.0.0"
+    },
+    "host": "api.fusion.oracle.com",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/Interactions": {
+            "get": {
+                "summary": "Worker",
+                "description": "The Worker endpoint returns information about the Workers. The response includes details about the Workers\n",
+                "parameters": [
+                    {
+                        "name": "Employee",
+                        "in": "query",
+                        "description": "Details Last name of the employee.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Workers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of Workers",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "Basic Worker"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Basic Worker": {
+            "properties": {
+                "business_unit": {
+                    "type": "string",
+                    "description": "Identifies which business unit this worker belongs to"
+                },
+                "legal_unit": {
+                    "type": "string",
+                    "description": "Identifies which legal unit this worker belongs to"
+                },
+                "start_date": {
+                    "type": "date",
+                    "description": "start date of the employee"
+                },
+                "first_name": {
+                    "type": "string",
+                    "description": "Identifies the first name of the employee"
+                },
+                "last_name": {
+                    "type": "string",
+                    "description": "Identifies the first name of the employee"
+                },
+                "organization_name": {
+                    "type": "string",
+                    "description": "Identifies the organization the employee belongs to"
+                },
+                "email_address": {
+                    "type": "string",
+                    "description": "Identifies the employee email address"
+                },
+                "manager_email_address": {
+                    "type": "string",
+                    "description": "Identifies the employee manager email address"
+                },
+                "date_of_birth": {
+                    "type": "date",
+                    "description": "Identifies the employee birth date"
+                },
+                "employee_id": {
+                    "type": "long",
+                    "description": "Identifies which person this row records data for"
+                },
+                "absence_days": {
+                    "type": "long",
+                    "description": "Description of product."
+                },
+                "absence hours": {
+                    "type": "long",
+                    "description": "Display name of product."
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
