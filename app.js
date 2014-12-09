@@ -16,7 +16,7 @@ app.get('/v1/Workers', function (req, res) {
         r = 0;
 	for (i =0 ; i < Workers.length ; i ++) {
 
-		if (req.query.email_address == Workers[i].email_address)
+		if (Workers[i].email_address.search(req.query.email_address) != -1)
 			retval[r] = Workers[i];
 		    r++;
 	}
