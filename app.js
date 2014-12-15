@@ -16,18 +16,26 @@ app.use(cors());
  
 app.get('/v1/Workers', function (req, res) {
     console.log('request: ',req.url);
-    var retval = [];
-        r = 0;
-	for (i =0 ; i < Workers.length ; i ++) {
 
-		if (Workers[i].email_address.search(req.query.email_address) != -1) {
+    var retval = [];
+    r = 0;
+    for (i = 0; i < Workers.length; i++) {
+        if (Workers[i].email_address.search(req.query.email_address) != -1) {
             retval[r] = Workers[i];
             r++;
+            Workers[i].directs = [];
+            s = 0;
+            for (j = 0; j < Workers.length; j++) {
+                if (Workers[j].manager_email_address == Workers[i].email_address) {
+                    Workers[i].directs[s] = Workers [j];
+                    s++;
+                }
+            }
         }
-	}
-
-	res.json(retval);
+    }
+    res.json(retval);
 })
+
 
 app.use(express.static(__dirname + '/public'));
 
